@@ -1,4 +1,4 @@
-function convertExpression(expression) {
+module.exports = (expression) => {
     const outputArray = [];
     const operationStack = [];
     const inputArray = expression.split(' ');
@@ -66,7 +66,7 @@ function convertExpression(expression) {
                 // eslint-disable-next-line no-case-declarations
                 const numberElement = Number.parseInt(element, 10);
 
-                if (isNaN(numberElement)) {
+                if (Number.isNaN(numberElement)) {
                     const e = new Error(`you used ${element}, but you mast use only number!`);
                     e.name = 'BadSequenceError';
                     throw e;
@@ -88,8 +88,4 @@ function convertExpression(expression) {
     }
 
     return outputArray.join(' ');
-}
-
-module.exports = (expression) => {
-    return convertExpression(expression);
 };

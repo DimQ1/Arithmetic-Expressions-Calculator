@@ -1,6 +1,6 @@
 const Calculator = require('./src/Calculator');
 
-const expression = '1 + 2 * ( 3 + 6 / 2 ) / 4 - 1 + 2 + ( 2 * 3 - 8 )';
+const expression = '1 * 2 + ( 3 + 6 / 2 ) / 4 - 1 + 2 * ( 2 * 3 - 8 )';
 
 const rpnCalculator = new Calculator();
 

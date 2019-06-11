@@ -53,7 +53,8 @@ const processHigthPriorityOperator = (operator, operationStack, outputArray) => 
     if (operationStack.length === 0) {
         operationStack.push(operator);
     } else {
-        switch (operationStack[operationStack.length - 1]) {
+        const lastItemInStack = operationStack[operationStack.length - 1];
+        switch (lastItemInStack) {
             case '+':
             case '-':
                 operationStack.push(operator);
@@ -70,9 +71,13 @@ const processHigthPriorityOperator = (operator, operationStack, outputArray) => 
     }
 };
 
+function checkTypeInputExpression(expression) {
+    if (typeof (expression) !== 'string') throw new Error('The expression must be a string type');
+}
+
 module.exports = class Calculator {
     calculateRPNExpression(expression) {
-        if (typeof (expression) !== 'string') throw new Error('The expression must be a string type');
+        checkTypeInputExpression(expression);
         const inputArray = expression.split(' ');
         const operationStack = [];
         inputArray.forEach((element) => {
@@ -93,6 +98,7 @@ module.exports = class Calculator {
     }
 
     convertToRPN(expression) {
+        checkTypeInputExpression(expression);
         const outputArray = [];
         const operationStack = [];
         const inputArray = expression.split(' ');

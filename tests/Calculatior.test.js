@@ -64,8 +64,8 @@ describe('test expression calculator', () => {
     });
 
     describe('testing, calculation reverse polish notation', () => {
-        const expectedRPNExpression = '1 2 3 6 2 / + * 4 / 1 - 2 + 2 3 * 8 - + +';
-        const calculatedResult = 3;
+        const expectedRPNExpression = '1 2 * 3 2 * 3 6 2 / + 4 / 1 - 2 2 3 * 8 - * + + +';
+        const calculatedResult = 1 * 2 + 3 * 2 + (3 + 6 / 2) / 4 - 1 + 2 * (2 * 3 - 8);
         describe('calculate Reverse Polish Notation', () => {
             test(`calculate RPN expression "${expectedRPNExpression}" expected ${calculatedResult}`, () => {
                 expect(new Calculator()
@@ -77,6 +77,17 @@ describe('test expression calculator', () => {
         describe('testing divide by zero', () => {
             const rpnExpression = '1 0 /';
             test(`divide by zero "${rpnExpression}" expected error`, () => {
+                expect(() => {
+                    (new Calculator())
+                        .calculateRPNExpression(rpnExpression);
+                })
+                    .toThrow();
+            });
+        });
+
+        describe('testing Type input expression', () => {
+            const rpnExpression = 1;
+            test('if type expression is not a string that the result will expect an error', () => {
                 expect(() => {
                     (new Calculator())
                         .calculateRPNExpression(rpnExpression);

@@ -1,34 +1,53 @@
 const Calculator = require('../src/Calculator');
 
 describe('test expression calculator', () => {
-    describe('testing, convertation to reverse polish notation', () => {
-        describe('testing, when higth-level operator first added in the stack', () => {
+    describe('inside function', () => {
+        test('get pairOfValue from stack', () => {
+            const firstValue = 2;
+            const secondValue = 3;
+            const stack = [20, 5, firstValue, secondValue];
+            const pairOfValue = (new Calculator())
+                .getCalculationPairOfValue(stack);
+            expect(pairOfValue.firstValue)
+                .toEqual(firstValue);
+            expect(pairOfValue.secondValue)
+                .toEqual(secondValue);
+        });
+
+        test('add number into output array', () => {
+            const numberElement = 3;
+            const outputArray = [1];
+            (new Calculator())
+                .addNumberInOutputArray(numberElement, outputArray);
+            expect(outputArray)
+                .toEqual([1, 3]);
+        });
+    });
+
+    describe('converting expression from math notation to Reverse Polish Notation', () => {
+        describe('when higth-level operator first added in the stack', () => {
             const inputStringExpression = '1 * 2 + ( 3 + 6 / 2 ) / 4 - 1 + 2 * ( 2 * 3 - 8 )';
             const expectedRPNExpression = '1 2 * 3 6 2 / + 4 / 1 - 2 2 3 * 8 - * + +';
 
-            describe('converting expression from math notation to Reverse Polish Notation', () => {
-                test(`input expression "${inputStringExpression}" to RPN "${expectedRPNExpression}"`, () => {
-                    expect(new Calculator()
-                        .convertToRPN(inputStringExpression))
-                        .toBe(expectedRPNExpression);
-                });
+            test(`input expression "${inputStringExpression}" to RPN "${expectedRPNExpression}"`, () => {
+                expect(new Calculator()
+                    .convertToRPN(inputStringExpression))
+                    .toBe(expectedRPNExpression);
             });
         });
 
-        describe('testing, when low-level operator first added in the stack', () => {
+        describe('when low-level operator first added in the stack', () => {
             const inputStringExpression = '1 + 2 * ( 3 + 6 / 2 ) / 4 - 1 + 2 + ( 2 * 3 - 8 )';
             const expectedRPNExpression = '1 2 3 6 2 / + * 4 / 1 - 2 + 2 3 * 8 - + +';
 
-            describe('converting expression from math notation to Reverse Polish Notation', () => {
-                test(`input expression "${inputStringExpression}" to RPN "${expectedRPNExpression}"`, () => {
-                    expect(new Calculator()
-                        .convertToRPN(inputStringExpression))
-                        .toBe(expectedRPNExpression);
-                });
+            test(`input expression "${inputStringExpression}" to RPN "${expectedRPNExpression}"`, () => {
+                expect(new Calculator()
+                    .convertToRPN(inputStringExpression))
+                    .toBe(expectedRPNExpression);
             });
 
 
-            describe('testing bad sequence', () => {
+            describe('exceptions', () => {
                 const rpnExpression = '1/+';
                 test(`bad sequence "${rpnExpression}" expected error`, () => {
                     expect(() => {
@@ -37,25 +56,21 @@ describe('test expression calculator', () => {
                     })
                         .toThrow();
                 });
-            });
 
-            describe('testing negative number', () => {
-                const rpnExpression = '-1 1 +';
-                test(`negative number "${rpnExpression}" expected error`, () => {
+                const negativeExpression = '-1 1 +';
+                test(`negative number "${negativeExpression}" expected error`, () => {
                     expect(() => {
                         (new Calculator())
-                            .convertToRPN(rpnExpression);
+                            .convertToRPN(negativeExpression);
                     })
                         .toThrow();
                 });
-            });
 
-            describe('testing Type input expression', () => {
-                const rpnExpression = 1;
+                const numberTypeExpression = 1;
                 test('if type expression is not a string that the result will expect an error', () => {
                     expect(() => {
                         (new Calculator())
-                            .convertToRPN(rpnExpression);
+                            .convertToRPN(numberTypeExpression);
                     })
                         .toThrow();
                 });
@@ -63,34 +78,31 @@ describe('test expression calculator', () => {
         });
     });
 
-    describe('testing, calculation reverse polish notation', () => {
+    describe('calculation reverse polish notation', () => {
         const expectedRPNExpression = '1 2 * 3 2 * 3 6 2 / + 4 / 1 - 2 2 3 * 8 - * + + +';
         const calculatedResult = 1 * 2 + 3 * 2 + (3 + 6 / 2) / 4 - 1 + 2 * (2 * 3 - 8);
-        describe('calculate Reverse Polish Notation', () => {
-            test(`calculate RPN expression "${expectedRPNExpression}" expected ${calculatedResult}`, () => {
-                expect(new Calculator()
-                    .calculateRPNExpression(expectedRPNExpression))
-                    .toBe(calculatedResult);
-            });
+
+        test(`calculate RPN expression "${expectedRPNExpression}" expected ${calculatedResult}`, () => {
+            expect(new Calculator()
+                .calculateRPNExpression(expectedRPNExpression))
+                .toBe(calculatedResult);
         });
 
-        describe('testing divide by zero', () => {
-            const rpnExpression = '1 0 /';
-            test(`divide by zero "${rpnExpression}" expected error`, () => {
+        describe('exceptions', () => {
+            const divideByZeroExpression = '1 0 /';
+            test(`divide by zero "${divideByZeroExpression}" expected error`, () => {
                 expect(() => {
                     (new Calculator())
-                        .calculateRPNExpression(rpnExpression);
+                        .calculateRPNExpression(divideByZeroExpression);
                 })
                     .toThrow();
             });
-        });
 
-        describe('testing Type input expression', () => {
-            const rpnExpression = 1;
+            const numberTypeExpression = 1;
             test('if type expression is not a string that the result will expect an error', () => {
                 expect(() => {
                     (new Calculator())
-                        .calculateRPNExpression(rpnExpression);
+                        .calculateRPNExpression(numberTypeExpression);
                 })
                     .toThrow();
             });

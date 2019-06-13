@@ -1,28 +1,66 @@
 const Calculator = require('../src/Calculator');
 
 describe('test expression calculator', () => {
-    describe('inside function', () => {
-        test('get pairOfValue from stack', () => {
-            const firstValue = 2;
-            const secondValue = 3;
-            const stack = [20, 5, firstValue, secondValue];
-            const pairOfValue = (new Calculator())
-                .getCalculationPairOfValue(stack);
-            expect(pairOfValue.firstValue)
-                .toEqual(firstValue);
-            expect(pairOfValue.secondValue)
-                .toEqual(secondValue);
-        });
+    test('check number type of input expression', () => {
+        const inputExpression = 1;
+        expect(() => {
+            (new Calculator())
+                .checkTypeInputExpression(inputExpression);
+        })
+            .toThrow();
+    });
 
-        test('add number into output array', () => {
-            const numberElement = 3;
-            const outputArray = [1];
+    test('check string type of input expression', () => {
+        const inputExpression = 'string';
+        expect(() => {
+            (new Calculator())
+                .checkTypeInputExpression(inputExpression);
+        })
+            .not.toThrow();
+    });
+
+    test('get pairOfValue from stack', () => {
+        const firstValue = 2;
+        const secondValue = 3;
+        const stack = [20, 5, firstValue, secondValue];
+        const pairOfValue = (new Calculator())
+            .getCalculationPairOfValue(stack);
+        expect(pairOfValue.firstValue)
+            .toEqual(firstValue);
+        expect(pairOfValue.secondValue)
+            .toEqual(secondValue);
+    });
+
+    test('add number into output array', () => {
+        const numberElement = 3;
+        const outputArray = [1];
+        (new Calculator())
+            .addNumberInOutputArray(numberElement, outputArray);
+        expect(outputArray)
+            .toEqual([1, 3]);
+    });
+
+    test('add negative number into output array', () => {
+        const numberElement = -3;
+        const outputArray = [1];
+        expect(() => {
             (new Calculator())
                 .addNumberInOutputArray(numberElement, outputArray);
-            expect(outputArray)
-                .toEqual([1, 3]);
-        });
+        })
+            .toThrow();
     });
+
+    test('add not a number type of value into output array', () => {
+        const numberElement = 'e';
+        const outputArray = [1];
+        expect(() => {
+            (new Calculator())
+                .addNumberInOutputArray(numberElement, outputArray);
+        })
+            .toThrow();
+    });
+
+
 
     describe('converting expression from math notation to Reverse Polish Notation', () => {
         describe('when higth-level operator first added in the stack', () => {

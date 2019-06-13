@@ -75,7 +75,7 @@ module.exports = class Calculator {
     }
 
     checkTypeInputExpression(expression) {
-        if (typeof (expression) !== 'string') { throw new Error('The expression must be a string type'); }
+        if (typeof (expression) !== 'string') { throw new Error('The expression must be a string type');  }
     }
 
     calculateRPNExpression(expression) {

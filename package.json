@@ -1,0 +1,28 @@
+{
+  "name": "arithmetic-expression-calculator",
+  "version": "1.0.0",
+  "description": "calculator of arithmetic expression by using reverse polish notation",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DimQ1/Arithmetic-Expressions-Calculator/tree/develop"
+  },
+  "keywords": [],
+  "author": "Dzmitry Shchamialiou",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/DimQ1/Arithmetic-Expressions-Calculator/issues"
+  },
+  "homepage": "https://github.com/DimQ1/Arithmetic-Expressions-Calculator/blob/develop/README.md",
+  "devDependencies": {
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.17.3",
+    "jest": "^24.8.0"
+  },
+  "dependencies": {}
+}
